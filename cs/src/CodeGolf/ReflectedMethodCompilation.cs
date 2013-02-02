@@ -43,12 +43,14 @@ namespace CodeGolf {
 
 			var siteParameter = Expression.Parameter(typeof(object), "o");
 			var argsParameter = Expression.Parameter(typeof(object[]), "arg");
+			var body = MakeBodyExpression(function, siteParameter, argsParameter);
 
-			return Expression.Lambda<CompiledReflectedFunction>(
-					Expression.Convert(MakeBodyExpression(function, siteParameter, argsParameter), typeof(object)),
-					new ParameterExpression[] { siteParameter, argsParameter }
-				)
-				.Compile();
+			if(!typeof(object).Equals(function.ReturnType))
+				body = Expression.Convert(body, typeof(object));
+
+			var expression = Expression.Lambda<CompiledReflectedFunction>(body, new ParameterExpression[] { siteParameter, argsParameter });
+
+			return expression.Compile();
 		}
 
 		/// <summary>
