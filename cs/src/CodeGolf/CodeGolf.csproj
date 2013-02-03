@@ -51,10 +51,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Invariants\InvariantOn.cs" />
+    <Compile Include="Invariants\InvariantSetFor.cs" />
+    <Compile Include="Invariants\InvariantSetTests.cs" />
+    <Compile Include="Invariants\Vehicles.cs" />
+    <Compile Include="Invariants\InvariantUtils.cs" />
+    <Compile Include="Invariants\InvariantUtilsTests.cs" />
+    <Compile Include="Invariants\InvariantViolationException.cs" />
     <Compile Include="ReflectedMethodCompilation\ReflectedMethodCompilation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\lib\Xception.cs" />
     <Compile Include="ReflectedMethodCompilation\ReflectedMethodCompilationTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Invariants\README.md" />
+    <None Include="ReflectedMethodCompilation\README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
