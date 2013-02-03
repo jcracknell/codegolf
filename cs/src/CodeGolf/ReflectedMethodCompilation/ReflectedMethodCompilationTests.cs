@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using Xunit;
 
-namespace CodeGolf {
+namespace CodeGolf.ReflectedMethodCompilation {
 	public class ReflectedMethodCompilationTests {
 		class Clazz {
 			public string InstanceField = "foo";

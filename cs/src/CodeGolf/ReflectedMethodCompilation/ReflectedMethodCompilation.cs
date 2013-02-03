@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace CodeGolf {
+namespace CodeGolf.ReflectedMethodCompilation {
 	/// <summary>
 	/// <para>
 	/// Delegate type representing a reflected function which has been compiled for high performance invocation.
