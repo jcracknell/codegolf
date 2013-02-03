@@ -10,7 +10,11 @@ namespace CodeGolf.Invariants {
 		public int Weight { get; set; }
 	}
 
-	class Car : Vehicle { }
+	class Car : Vehicle {
+		public override string ToString() { return "das auto"; }
+	}
+
+	class Sedan : Car { }
 
 	class Truck : Vehicle { }
 

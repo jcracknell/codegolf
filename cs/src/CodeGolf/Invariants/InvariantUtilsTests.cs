@@ -31,5 +31,17 @@ namespace CodeGolf.Invariants {
 			InvariantUtils.FindUnparametrizedInvariantsFor<Truck>(typeof(Vehicle).Assembly)
 			.Should().NotContain(typeof(CarHasFourWheelsInvariant), "because it is not applicable to trucks");
 		}
+
+		[Fact] public void InvariantUtils_OverridesToString_Car_should_return_true() {
+			InvariantUtils.OverridesToString(typeof(Car)).Should().BeTrue();
+		}
+
+		[Fact] public void InvariantUtils_OverridesToString_Truck_should_return_false() {
+			InvariantUtils.OverridesToString(typeof(Truck)).Should().BeFalse();
+		}
+
+		[Fact] public void InvariantUtils_OverridesToString_Sedan_should_return_true() {
+			InvariantUtils.OverridesToString(typeof(Sedan)).Should().BeTrue("because it inherits the override implemented by Car");
+		}
 	}
 }

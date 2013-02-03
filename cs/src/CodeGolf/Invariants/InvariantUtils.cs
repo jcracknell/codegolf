@@ -47,5 +47,14 @@ namespace CodeGolf.Invariants {
 				&& !type.IsInterface
 				&& typeof(InvariantOn<TSubject>).IsAssignableFrom(type);
 		}
+
+		/// <summary>
+		/// Returns true if the provided <paramref name="type"/> overrides the default parameterless ToString implementation.
+		/// </summary>
+		public static bool OverridesToString(Type type) {
+			var toString = type.GetMethod("ToString", new Type[0]);
+
+			return null != toString && !typeof(object).Equals(toString.DeclaringType);
+		}
 	}
 }
