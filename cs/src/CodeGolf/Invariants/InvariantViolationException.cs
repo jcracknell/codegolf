@@ -10,7 +10,7 @@ namespace CodeGolf.Invariants {
 	public class InvariantViolationException : Exception {
 
 		public InvariantViolationException(object invariant, object subject)
-			: base("Invariant " + invariant.GetType().FullName + " violated by subject " + SafeToString(subject))
+			: base("Invariant " + SafeToString(invariant) + " violated by subject " + SafeToString(subject))
 		{
 			Invariant = invariant;
 			Subject = subject;
@@ -29,7 +29,7 @@ namespace CodeGolf.Invariants {
 		private static string SafeToString(object o) {
 			if(null == o) return "<NULL>";
 			try { return o.ToString(); }
-			catch { return "<TOSTRING_ERROR>"; }
+			catch { return o.GetType().FullName; }
 		}
 	}
 }
