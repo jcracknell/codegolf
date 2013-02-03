@@ -91,6 +91,7 @@ namespace CodeGolf.Invariants {
 		/// <param name="filter">Filter predicate which must be satisfied by unparametrized invariant types before being instantiated and added to the invariant set.</param>
 		public InvariantSetFor<TSubject> AddFrom(Assembly assembly, Func<Type, bool> filter) {
 			if(null == assembly) throw Xception.Because.ArgumentNull(() => assembly);
+			if(null == filter) throw Xception.Because.ArgumentNull(() => filter);
 
 			foreach(var unparametrizedInvariant in InvariantUtils.FindUnparametrizedInvariantsFor<TSubject>(assembly)) {
 				// Prevent double addition of invariants
