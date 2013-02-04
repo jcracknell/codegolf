@@ -115,9 +115,7 @@ namespace CodeGolf.Invariants {
 		/// <param name="subject">The subject instance for which the satisfaction of the loaded invariants should be verified.</param>
 		/// <exception cref="InvariantViolationException"/>
 		public void AssertSatisifiedBy(TSubject subject) {
-			foreach(var invariant in _invariants)
-				if(!invariant.IsSatisfiedBy(subject))
-					throw new InvariantViolationException(invariant, subject);
+			InvariantUtils.AssertAllSatisfiedBy(_invariants, subject);
 		}
 
 		public bool IsSatisfiedBy(TSubject subject) {
