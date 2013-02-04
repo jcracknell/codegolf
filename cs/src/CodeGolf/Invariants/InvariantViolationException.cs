@@ -9,8 +9,11 @@ namespace CodeGolf.Invariants {
 	/// </summary>
 	public class InvariantViolationException : Exception {
 
-		public InvariantViolationException(object invariant, object subject)
-			: base("Invariant " + SafeToString(invariant) + " violated by subject: " + SafeToString(subject))
+		public InvariantViolationException(object invariant, object subject) 
+			: this(invariant, subject, null) { }
+
+		public InvariantViolationException(object invariant, object subject, Exception inner)
+			: base("Invariant " + SafeToString(invariant) + " violated by subject: " + SafeToString(subject), inner)
 		{
 			Invariant = invariant;
 			Subject = subject;

@@ -16,9 +16,16 @@ namespace CodeGolf.Invariants {
 		public static void AssertAllSatisfiedBy<TSubject>(IEnumerable<InvariantOn<TSubject>> invariants, TSubject subject) {
 			if(null == invariants) throw Xception.Because.ArgumentNull(() => invariants);
 
-			foreach(var invariant in invariants)
-				if(!invariant.IsSatisfiedBy(subject))
+			foreach(var invariant in invariants) {
+				var satisfied = false;
+				try { satisfied = invariant.IsSatisfiedBy(subject); }
+				catch(InvariantViolationException ex) {
+					throw new InvariantViolationException(invariant, subject, ex);
+				}
+
+				if(!satisfied)
 					throw new InvariantViolationException(invariant, subject);
+			}
 		}
 
 		/// <summary>
