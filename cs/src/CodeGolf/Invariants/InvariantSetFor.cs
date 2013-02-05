@@ -10,9 +10,9 @@ namespace CodeGolf.Invariants {
 	/// if <typeparamref name="TSubject"/>.
 	/// </summary>
 	/// <typeparam name="TSubject">The subject type for the invariant set.</typeparam>
-	public class InvariantSetFor<TSubject> : InvariantOn<TSubject> {
+	public class InvariantSetFor<TSubject> : IInvariant<TSubject> {
 		private readonly HashSet<Type> _addedUnparametrizedInvariants = new HashSet<Type>();
-		private readonly List<InvariantOn<TSubject>> _invariants = new List<InvariantOn<TSubject>>();
+		private readonly List<IInvariant<TSubject>> _invariants = new List<IInvariant<TSubject>>();
 
 		/// <summary>
 		/// Create a new invariant set which can be used to assert the satisfaction of invariants for instances,
@@ -36,7 +36,7 @@ namespace CodeGolf.Invariants {
 		/// Add the provided <paramref name="invariant"/> to the invariant set.
 		/// </summary>
 		/// <param name="invariant">The invariant to be added to the invariant set.</param>
-		public void Add(InvariantOn<TSubject> invariant) {
+		public void Add(IInvariant<TSubject> invariant) {
 			if(null == invariant) throw Xception.Because.ArgumentNull(() => invariant);
 
 			_invariants.Add(invariant);
@@ -46,7 +46,7 @@ namespace CodeGolf.Invariants {
 		/// Add the provided <paramref name="invariants"/> to the invariant set.
 		/// </summary>
 		/// <param name="invariants">The invariants which should be added to the invariant set.</param>
-		public void Add(IEnumerable<InvariantOn<TSubject>> invariants) {
+		public void Add(IEnumerable<IInvariant<TSubject>> invariants) {
 			if(null == invariants) throw Xception.Because.ArgumentNull(() => invariants);
 
 			foreach(var invariant in invariants)
@@ -101,7 +101,7 @@ namespace CodeGolf.Invariants {
 				if(!filter(unparametrizedInvariant))
 					continue;
 
-				Add((InvariantOn<TSubject>)Activator.CreateInstance(unparametrizedInvariant));
+				Add((IInvariant<TSubject>)Activator.CreateInstance(unparametrizedInvariant));
 
 				_addedUnparametrizedInvariants.Add(unparametrizedInvariant);
 			}
@@ -110,16 +110,12 @@ namespace CodeGolf.Invariants {
 		}
 
 		/// <summary>
-		/// Assert that all loaded invariants hold on the provided <paramref name="subject"/> instance.
+		/// Asserts that all invariants in the invariant set are satisfied by the provided <paramref name="TSubject"/>.
 		/// </summary>
-		/// <param name="subject">The subject instance for which the satisfaction of the loaded invariants should be verified.</param>
-		/// <exception cref="InvariantViolationException"/>
-		public void AssertSatisifiedBy(TSubject subject) {
-			InvariantUtils.AssertAllSatisfiedBy(_invariants, subject);
-		}
-
-		public bool IsSatisfiedBy(TSubject subject) {
-			return _invariants.All(invariant => invariant.IsSatisfiedBy(subject));
+		/// <param name="subject">The <typeparamref name="TSubject"/> for which the satisfaction of the added invariants should be verified.</param>
+		public void AssertSatisfiedBy(TSubject subject) {
+			foreach(var invariant in _invariants)
+				InvariantUtils.AssertSatisfied(invariant, subject);
 		}
 	}
 }

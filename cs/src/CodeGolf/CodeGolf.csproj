@@ -51,7 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Invariants\InvariantOn.cs" />
+    <Compile Include="Invariants\IInvariant.cs" />
+    <Compile Include="Invariants\InvariantFor.cs" />
     <Compile Include="Invariants\InvariantSetFor.cs" />
     <Compile Include="Invariants\InvariantSetTests.cs" />
     <Compile Include="Invariants\Vehicles.cs" />

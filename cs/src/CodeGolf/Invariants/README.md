@@ -2,7 +2,8 @@
 
 This in my attempt at a simple library for opt-in implementation of [class invariants](https://en.wikipedia.org/wiki/Class_invariant) implementable as standalone artifacts in a code base.
 
-The `InvariantOn<TSubject>` interface is used to declare an invariant which must hold on an instance of `TSubject` as a simple function returning `true` or `false`.
+The `IInvariant<TSubject>` interface is used to declare an invariant which must hold on an instance of `TSubject`.
+`InvariantFor<TSubject> : IInvariant<TSubject>` is an abstract base class requiring only the implementation of a satisfaction predicate.
 
 The `InvariantSetFor<TSubject>` class is used to assert the satisfaction of invariants by instances of `TSubject`.
 It can (by default) auto-populate itself with implementations of `InvariantOn<TSubject>` declaring a public parameterless constructor.

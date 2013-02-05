@@ -7,24 +7,19 @@ using System.Text;
 namespace CodeGolf.Invariants {
 	public static class InvariantUtils {
 		/// <summary>
-		/// Assert that all of the provided <paramref name="invariants"/> are satisfied by provided <paramref name="subject"/> instance.
+		/// Core implementation of invariant satisfaction logic.
 		/// </summary>
-		/// <typeparam name="TSubject">The subject type to which the invariants apply.</typeparam>
-		/// <param name="invariants">The invariants for which satisfaction should be asserted.</param>
-		/// <param name="subject">The <typeparamref name="TSubject"/> instance which must satisfy the provided assertions.</param>
-		/// <exception cref="InvariantViolationException"/>
-		public static void AssertAllSatisfiedBy<TSubject>(IEnumerable<InvariantOn<TSubject>> invariants, TSubject subject) {
-			if(null == invariants) throw Xception.Because.ArgumentNull(() => invariants);
+		public static void AssertSatisfied<TSubject>(IInvariant<TSubject> invariant, TSubject subject) {
+			if(null == invariant) throw Xception.Because.ArgumentNull(() => invariant);
 
-			foreach(var invariant in invariants) {
-				var satisfied = false;
-				try { satisfied = invariant.IsSatisfiedBy(subject); }
-				catch(InvariantViolationException ex) {
-					throw new InvariantViolationException(invariant, subject, ex);
-				}
+			try { invariant.AssertSatisfiedBy(subject); }
+			catch(InvariantViolationException ive) {
+				// if an IVE was thrown and the claimed invariant was not the one we just tested, then the violated
+				// invariant was certainly a child of the current one, and we should wrap the exception
+				if(null != ive.Invariant && !object.ReferenceEquals(invariant, ive.Invariant))
+					throw new InvariantViolationException(invariant, subject, ive);
 
-				if(!satisfied)
-					throw new InvariantViolationException(invariant, subject);
+				throw;
 			}
 		}
 
@@ -67,7 +62,7 @@ namespace CodeGolf.Invariants {
 
 			return !type.IsAbstract
 				&& !type.IsInterface
-				&& typeof(InvariantOn<TSubject>).IsAssignableFrom(type);
+				&& typeof(IInvariant<TSubject>).IsAssignableFrom(type);
 		}
 
 		/// <summary>
