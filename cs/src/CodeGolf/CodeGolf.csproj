@@ -63,6 +63,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\..\lib\Xception.cs" />
     <Compile Include="ReflectedMethodCompilation\ReflectedMethodCompilationTests.cs" />
+    <Compile Include="SequentialUuids\SequentialUuidGenerator.cs" />
+    <Compile Include="SequentialUuids\SequentialUuidGeneratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Invariants\README.md" />
