@@ -26,7 +26,13 @@ namespace CodeGolf.SequentialUuids {
 			_random = new Random((seedBytes[1] << 24) | (seedBytes[3] << 16) | (seedBytes[13] << 8) | (seedBytes[15]));
 
 			// Generate the initial node id
+			GenerateNodeId();
+		}
+
+		private void GenerateNodeId() {
 			_random.NextBytes(_storedNode);
+			// Set multicast bit per RFC 4122
+			_storedNode[0] |= 1;
 		}
 
 		/// <summary>
@@ -46,7 +52,7 @@ namespace CodeGolf.SequentialUuids {
 					// If the time has changed BACKWARDS (as might occur when the system time is changed),
 					// generate a new node id to prevent possible collisions
 					if(timestamp < _storedTimestamp)
-						_random.NextBytes(_storedNode);
+						GenerateNodeId();
 
 					_storedTimestamp = timestamp;
 					_storedSequence = 0;
