@@ -1,5 +1,5 @@
-object Levenshtein {
-  def levenshtein[T](a:String, b:String):Int = {
+object LevenshteinDistance {
+  def compute[T](a:String, b:String):Int = {
     // This is a very non-idiomatic implementation, for performance reasons
     val al = a.length; val bl = b.length;
     if(0 == al) return bl;
