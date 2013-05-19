@@ -91,10 +91,9 @@ object Uuid {
     **/
   def apply(bs:Array[Byte]):Uuid = {
     assert(16 == bs.length, "Provided array must contain 16 bytes.")
-    new Uuid(
-      (0l /: bs.slice(0,  8)) { (x, b) => (x << 8) | (b & 0xFF) },
-      (0l /: bs.slice(8, 16)) { (x, b) => (x << 8) | (b & 0xFF) }
-    )
+    val hi = (0l /: bs.slice(0,  8)) { (x, b) => (x << 8) | (b & 0xFFl) }
+    val lo = (0l /: bs.slice(8, 16)) { (x, b) => (x << 8) | (b & 0xFFl) }
+    new Uuid(hi, lo)
   }
 
   private val UuidRegex = Array(8,4,4,4,12).view.map(n => s"([0-9a-fA-F]{$n})").mkString("^\\s*\\{?", "-?", "\\}?\\s*$").r
