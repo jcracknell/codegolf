@@ -27,7 +27,7 @@ trait NumeralSystem {
 object NumeralSystem {
   /** `NumeralSystem` encoding positive integers using roman letters 'a' through 'z'. */
   object Alpha extends NumeralSystem {
-    val CharValues = (('a' to 'z') map { c => (c, c-'a'+1) }) ++ (('A' to 'Z') map { c => (c, c-'A'+1) }) toMap
+    private val CharValues = (('a' to 'z') ++ ('A' to 'Z')).map(c => (c -> (c & 31))).toMap
 
     def decode(s:String):Option[Int] =
       (Option(0) /: s) { (m,c) =>

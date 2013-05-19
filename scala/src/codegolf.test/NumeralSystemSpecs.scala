@@ -44,7 +44,7 @@ class NumeralSystemSpecs extends FunSpec with ShouldMatchers {
           NumeralSystem.Alpha.encode(53) should be (Some("ba"))
         }
         it("should encode 54") {
-          NumeralSystem.Alpha.encode(57) should be (Some("bb"))
+          NumeralSystem.Alpha.encode(54) should be (Some("bb"))
         }
         it("should encode 153") {
           NumeralSystem.Alpha.encode(153) should be (Some("ew"))
