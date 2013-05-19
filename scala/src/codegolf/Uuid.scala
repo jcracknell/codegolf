@@ -77,8 +77,8 @@ class Uuid(val hi:Long, val lo:Long) extends Ordered[Uuid] {
 
 object Uuid {
   private val HexChar:Array[Char] = "0123456789abcdef".toCharArray
-  private val HexValue:Array[Int] =
-    (new Array[Int]('f'+1) /: "0123456789AaBbCcDdEeFf") { (a, c) => a(c) = 0x0F & c + ((0x40 & c) >> 6) * 9; a }
+  private val HexValue:Array[Long] =
+    (new Array[Long]('f'+1) /: "0123456789AaBbCcDdEeFf") { (a, c) => a(c) = (0x0Fl & c) + ((0x40l & c) >>> 6) * 9l; a }
 
   /** The nil UUID, as specified by RFC 4122. */
   val nil = new Uuid(0l,0l)
