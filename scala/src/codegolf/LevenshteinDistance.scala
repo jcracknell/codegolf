@@ -1,4 +1,18 @@
+/** Facility for computation of the Levenshtein distance between indexed sequences `a` and `b`; the number of
+  * single-element insertions, deletions and substitutions required to transform `a` into `b`. */
 object LevenshteinDistance {
+  /** Computes the Levenshtein distance between indexed sequences `a` and `b`; the number of single-element insertions,
+    * deletions and substitutions required to transform `a` into `b`.
+    * Most often used to compute the distance between two strings.
+    * Can optionally be provided with a method for comparing sequence elements in the event that the default equality
+    * semantics are undesirable.
+    *
+    * @param a the first sequence.
+    * @param b the second sequence.
+    * @param eq optional method which can be used to override comparison semantics.
+    * @tparam T the element type of sequences `a` and `b`.
+    * @return the Levenshtein distance between sequences `a` and `b`.
+    */
   def compute[T](a:IndexedSeq[T], b:IndexedSeq[T], eq:(T, T) => Boolean = { (ae:T, be:T) => ae == be }):Int = {
     // This is a very non-idiomatic implementation, for performance reasons
     val al = a.length; val bl = b.length;
