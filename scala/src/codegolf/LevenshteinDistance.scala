@@ -1,5 +1,5 @@
 object LevenshteinDistance {
-  def compute[T](a:String, b:String):Int = {
+  def compute[T](a:IndexedSeq[T], b:IndexedSeq[T], eq:(T, T) => Boolean = { (ae:T, be:T) => ae == be }):Int = {
     // This is a very non-idiomatic implementation, for performance reasons
     val al = a.length; val bl = b.length;
     if(0 == al) return bl;
@@ -11,13 +11,12 @@ object LevenshteinDistance {
 
 		var ai = 1; var aii = 0;
     while(ai <= al) {
-      val ae = a.charAt(aii); // Cache the element of `a` under consideration
-
+      val ae = a(aii); // Cache the element of `a` under consideration
       d1(0) = ai;
 			var bii = 0; var bi = 1;
       while(bi <= bl) {
         d1(bi) =
-          if(ae == b.charAt(bii)) d0(bii)
+          if(eq(ae, b(bii))) d0(bii)
           else {
             // This is a highly optimized `min` implementation
             val x = d0(bii); val y = d0(bi); val z = d1(bii);
