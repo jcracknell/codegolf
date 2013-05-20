@@ -89,7 +89,7 @@ object Uuid {
     *
     * @param bs bytes used to initialize the value of the [[Uuid]]. Must have length 16.
     **/
-  def apply(bs:Array[Byte]):Uuid = {
+  def apply(bs:Seq[Byte]):Uuid = {
     assert(16 == bs.length, "Provided array must contain 16 bytes.")
     val hi = (0l /: bs.slice(0,  8)) { (x, b) => (x << 8) | (b & 0xFFl) }
     val lo = (0l /: bs.slice(8, 16)) { (x, b) => (x << 8) | (b & 0xFFl) }
