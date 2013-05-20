@@ -23,7 +23,7 @@ object LevenshteinDistance {
     var d0 = Array.range(0, ds);
     var d1 = new Array[Int](ds);
 
-		var ai = 1; var aii = 0;
+    var ai = 1; var aii = 0;
     while(ai <= al) {
       val ae = a(aii); // Cache the element of `a` under consideration
       d1(0) = ai;
