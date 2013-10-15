@@ -1,7 +1,6 @@
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSpec, Matchers}
 
-class NumeralSystemSpecs extends FunSpec with ShouldMatchers {
+class NumeralSystemSpecs extends FunSpec with Matchers {
   describe("NumeralSystem") {
     describe("Alpha") {
       describe("decode method") {

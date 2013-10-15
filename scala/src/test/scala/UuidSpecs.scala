@@ -1,7 +1,6 @@
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSpec, Matchers}
 
-class UuidSpecs extends FunSpec with ShouldMatchers {
+class UuidSpecs extends FunSpec with Matchers {
   describe("fields") {
     // The following Uuid instance has a (trivially) distinctive bit pattern which makes it useful
     // for testing purposes

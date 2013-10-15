@@ -1,7 +1,6 @@
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSpec, Matchers}
 
-class LevenshteinDistanceSpec extends FunSpec with ShouldMatchers {
+class LevenshteinDistanceSpec extends FunSpec with Matchers {
   describe("LevenshteinDistance result") {
     it("should be 0 for identical strings") {
       LevenshteinDistance.compute("james","james") should be (0)

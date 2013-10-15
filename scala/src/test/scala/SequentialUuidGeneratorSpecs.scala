@@ -1,7 +1,6 @@
-import org.scalatest.FunSpec
-import org.scalatest.matchers.ShouldMatchers
+import org.scalatest.{FunSpec, Matchers}
 
-class SequentialUuidGeneratorSpecs extends FunSpec with ShouldMatchers {
+class SequentialUuidGeneratorSpecs extends FunSpec with Matchers {
   describe("SequentialUuidGenerator") {
     it("should generate unique Uuid values") {
       val generator = new SequentialUuidGenerator
