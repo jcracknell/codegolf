@@ -40,8 +40,8 @@ object NumeralSystem {
     def encode(i:Int):Option[String] =
       if(1 > i) Option.empty[String]
       else {
-        val ds = Iterator.iterate(i-1)(_/26 - 1) takeWhile(0<=)
-        Some((ds :\ new StringBuilder) { (x, sb) => sb + ('a'+x%26).toChar } toString)
+        val ds = Iterator.iterate(i-1)(_/26 - 1).takeWhile(_ >= 0)
+        Some(((ds :\ new StringBuilder) { (x, sb) => sb + ('a'+x%26).toChar }).toString)
       }
   }
 
