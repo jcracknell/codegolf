@@ -16,8 +16,12 @@ object CodeGolfBuild extends Build {
       ),
       libraryDependencies <++= (scalaVersion){ sv => Seq(
         "org.scala-lang" % "scala-reflect" % sv,
-        "org.scalatest" %% "scalatest" % "latest.snapshot" % "test"
-      ) }
+        "org.scalatest" %% "scalatest" % "latest.snapshot" % "test",
+        // `latest.snapshot` currently seems to resolve to maven central, which is out of date...
+        "com.github.axel22" %% "scalameter" % "0.4-SNAPSHOT" % "test"
+      ) },
+      testFrameworks += new TestFramework("org.scalameter.ScalaMeterFramework"),
+      resolvers += Resolver.sonatypeRepo("snapshots")
     )
   )
 }
